@@ -7,6 +7,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const autoprefixer = require('autoprefixer');
+const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
   entry: './index.js',
@@ -83,18 +84,7 @@ module.exports = {
       chunkFileName: '[id].css'
     }),
   ],
-  externals: {
-    react: {
-      commonjs: 'React',
-      commonjs2: 'react',
-      amd: 'react'
-    },
-    'react-dom': {
-      commonjs: 'ReactDOM',
-      commonjs2: 'react-dom',
-      amd: 'react-dom'
-    }
-  },
+  externals: [nodeExternals()],
   optimization: {
     minimizer: [
       new UglifyJsPlugin({
